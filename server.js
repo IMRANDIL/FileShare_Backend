@@ -1,16 +1,24 @@
 const express = require('express');
 
 const app = express();
-
+const path = require('path')
 require('dotenv').config();
 const ConnectDb = require('./config/db')
 ConnectDb()
 const PORT = process.env.PORT || 3000;
 
+//Template Engine..
+
+app.set('views', path.join(__dirname, '/views'));
+
+app.set('view engine', 'ejs')
+
+
 //Routes....
 
 app.use('/api/files', require('./routes/files'))
 
+app.use('/files', require('./routes/show'));
 
 
 

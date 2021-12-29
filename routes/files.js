@@ -55,7 +55,7 @@ router.post('/', (req, res) => {
             size: req.file.size
 
         });
-
+        //Response..send Link
         const response = await file.save();
         return res.json({ file: `${process.env.APP_URI}/files/${response.uuid}` })
 
@@ -64,7 +64,47 @@ router.post('/', (req, res) => {
     })
 
 
-    //Response..send Link
+
+
+});
+
+
+router.post('/send', async (req, res) => {
+    const { uuid, emailTo, emailFrom } = req.body;
+    //Validate Request
+
+    if (!uuid || !emailTo || !emailFrom) {
+        return res.status(422).send({ error: 'All fields are required' });
+    }
+
+    // Get data from database..
+
+    const file = await File.findOne({ uuid: uuid });
+    if (file.sender) {
+        return res.status(422).send({ error: 'Email Already Sent' });
+    }
+
+    file.sender = emailFrom;
+    file.receiver = emailTo;
+    const response = await file.save();
+
+    //send email..
+    const sendMail = require('../services/email')
+
+    sendMail({
+        from: emailTo,
+        to: emailFrom,
+        subject: 'inShare FileSharing',
+        text: `${emailFrom} shared a file with you.`,
+        html: require('../services/emailTemplate')({
+            emailFrom: emailFrom,
+            downloadLink: `${process.env.APP_URI}/files/${file.uuid}`,
+            size: `${parseInt(file.size / 1000)}KB`,
+            expires: `24 hours`
+
+        })
+    })
+
 
 })
 

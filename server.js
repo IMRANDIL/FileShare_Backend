@@ -7,14 +7,14 @@ require('dotenv').config();
 const ConnectDb = require('./config/db');
 
 //cors.....
-const corsOptions = {
-    origin: process.env.ALLOWED_CLIENTS.split(',')
-    //['http://localhost:3000', 'http://localhost:5000', 'http://localhost:5500']
-}
+// const corsOptions = {
+//     origin: process.env.ALLOWED_CLIENTS.split(',')
+//     //['http://localhost:3000', 'http://localhost:5000', 'http://localhost:5500']
+// }
 
 // console.log(corsOptions.origin)
 
-app.use(cors(corsOptions.origin))
+app.use(cors())
 
 
 

@@ -39,7 +39,7 @@ app.use('/files', require('./routes/show'));
 app.use('/files/download', require('./routes/download'))
 
 app.get('/', (req, res) => {
-    return res.send(`<h1 style="text-align:center">File Sharing App</h1><a href="https://imrandil.github.io/NodeExpress_Project02/" style="color:red, text-decoration:none">Go to App</a>`)
+    return res.send(`<h1 style="text-align:center">File Sharing App</h1><a href="https://imrandil.github.io/NodeExpress_Project02/" style="color:red; text-decoration:none" target="_blank">Go to App</a>`)
 })
 
 

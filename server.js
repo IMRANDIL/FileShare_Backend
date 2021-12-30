@@ -24,7 +24,9 @@ app.use('/files', require('./routes/show'));
 
 app.use('/files/download', require('./routes/download'))
 
-
+app.get('/', (req, res) => {
+    return res.send(`<h1 style="text-align:center">File Sharing App</h1>`)
+})
 
 
 app.listen(PORT, () => {

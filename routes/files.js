@@ -70,6 +70,7 @@ router.post('/', (req, res) => {
 
 
 router.post('/send', async (req, res) => {
+
     const { uuid, emailTo, emailFrom } = req.body;
     //Validate Request
 
@@ -92,8 +93,8 @@ router.post('/send', async (req, res) => {
     const sendMail = require('../services/email')
 
     sendMail({
-        from: emailTo,
-        to: emailFrom,
+        from: emailFrom,
+        to: emailTo,
         subject: 'inShare FileSharing',
         text: `${emailFrom} shared a file with you.`,
         html: require('../services/emailTemplate')({
@@ -103,7 +104,9 @@ router.post('/send', async (req, res) => {
             expires: `24 hours`
 
         })
-    })
+    });
+
+    return res.send({ success: true })
 
 
 })

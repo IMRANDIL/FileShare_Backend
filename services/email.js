@@ -1,5 +1,5 @@
 const nodemailer = require('nodemailer');
-
+require('dotenv').config();
 
 async function sendMail({ from, to, subject, text, html }) {
     let transporter = nodemailer.createTransport({
@@ -7,11 +7,13 @@ async function sendMail({ from, to, subject, text, html }) {
         port: process.env.SMTP_PORT,
         secure: false,
         auth: {
-            user: process.env.USER,
+            user: 'aliimranadil2@gmail.com',
             pass: process.env.PASSWORD
         }
 
-    })
+    });
+
+
 
     let info = await transporter.sendMail({
         from: `inShare<${from}>`,
@@ -19,7 +21,9 @@ async function sendMail({ from, to, subject, text, html }) {
         subject: subject,
         text: text,
         html: html
-    })
+    });
+
+
 }
 
 

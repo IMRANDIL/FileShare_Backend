@@ -12,7 +12,9 @@ const corsOptions = {
     //['http://localhost:3000', 'http://localhost:5000', 'http://localhost:5500']
 }
 
-app.use(cors(corsOptions))
+// console.log(corsOptions.origin)
+
+app.use(cors(corsOptions.origin))
 
 
 
